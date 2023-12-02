@@ -24,17 +24,15 @@ def getAngle(pointsList):
     angR = math.atan((m2-m1)/(1+(m2*m1)))
     angD = round(math.degrees(angR))
  
-    cv2.putText(img,str(angD),(pt1[0]-40,pt1[1]-20),cv2.FONT_HERSHEY_COMPLEX,
-                1.5,(0,0,255),2)
+    cv2.putText(img, str(angD), (pt1[0]-40, pt1[1]-20), cv2.FONT_HERSHEY_COMPLEX,
+                1.5, (0, 0, 255), 2)
  
 while True:
- 
- 
     if len(pointsList) % 3 == 0 and len(pointsList) !=0:
         getAngle(pointsList)
  
     cv2.imshow('Image',img)
     cv2.setMouseCallback('Image',mousePoints)
-    if cv2.waitKey(1) &amp; 0xFF == ord('q'):
+    if cv2.waitKey(1) & 0xFF == ord('q'):
         pointsList = []
         img = cv2.imread(path)
