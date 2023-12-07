@@ -15,7 +15,7 @@ img2 = cv2.imread('.\\1\\7.png', 0)
 sift = cv2.SIFT_create()  # 创建一个sift算子
 kp1, des1 = sift.detectAndCompute(img1, None)  # 计算特征点与特征向量
 img4 = cv2.drawKeypoints(img1, kp1, img1)  # 绘制关键点
-cv2.imshow("sift.png", img4)
+# cv2.imshow("sift.png", img4)
 kp2, des2 = sift.detectAndCompute(img2, None)
 
 bf = cv2.BFMatcher(crossCheck=True)
@@ -37,12 +37,11 @@ matches = sorted(matches, key=lambda x: x.distance)  # 根据匹配质量排序�
 # cv2.imshow("pipei.png", img3)
 # cv2.waitKey(0)
 # cv2.destroyAllWindows()
-
-
+number = int(len(matches)/2)
 def get_rect(res, kp, idx=0):
     point_img = []
     # 获得前十res个对应的点
-    for i in res[:10]:
+    for i in res[:number]:
         if idx == 0:
             center = cv2.KeyPoint_convert(kp, keypointIndexes=[i.queryIdx])
         elif idx == 1:
@@ -70,7 +69,10 @@ cv2.rectangle(img2, min3, max4, [255, 0, 0], 4, 16)
 cv2.rectangle(img1, min1, max2, [255, 0, 0], 4, 16)
 
 # 将最相近的10个点绘画出来
-newimg = cv2.drawMatches(img1, kp1, img2, kp2, matches[:10], None)
+newimg = cv2.drawMatches(img1, kp1, img2, kp2, matches[:number], None)
+
+cv2.imshow("pipei.png", newimg)
+
 # 绘制原图特征点
 img = cv2.drawKeypoints(img1, kp1, None, color=[0, 0, 255])
 tem = cv2.drawKeypoints(img2, kp2, None, color=[0, 255, 0])
@@ -91,3 +93,6 @@ def imshow(img, axis, title=None):
 all_img = [img, tem, newimg]
 all_title = ['img', 'tem', 'newimg']
 imshow(all_img, [2, 2], all_title)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
