@@ -28,13 +28,20 @@ rect = cv2.minAreaRect(cnt)
 
 # 获取最小外接矩形的4个顶点坐标
 box = cv2.boxPoints(rect)
-print(type(box))
-print(type([box]))
+#print(type(box))
+print("-----")
+print(type(tuple([box])))
+print(tuple([box]))
+
+
+print("-----")
 print(type(contours))
+print(contours)
+
 
 # 画出来
 img = cv2.drawContours(img, contours, 0, (0, 0, 255), 5)
-img = cv2.drawContours(img, [box], 0, (0, 0, 255), 5)
+#img = cv2.drawContours(img, tuple([box]), 0, (0, 0, 255), 5)
 
 cv2.imshow('img2', img)
 # plt.imshow(img)
